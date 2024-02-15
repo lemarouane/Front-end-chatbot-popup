@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Test</title>
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+        .chat-box-header .online-indicator {
+            position: relative;
+            top: -4px;
+            left: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: green;
+            display: none;
+        }
+
+        .chat-box-header.online .online-indicator {
+            display: inline-block;
+        }
+
+       /* #44b897, #f1c758, #f66728 and #d6261b */
+
+
+       .chat-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4bbd55; 
+    color: #fff;
+    border: none;
+    border-radius: 5px; /* Decrease border radius for a more rectangular look */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    font-size: 16px; /* Increase font size */
+    font-family: 'Arial', sans-serif; /* Change font family */
+    letter-spacing: 1px; /* Increase letter spacing */
+    text-align: center; /* Center text */
+    line-height: 1.5; /* Increase line height */
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2); /* Add text shadow */
+    outline: none; /* Remove outline */
+    background: linear-gradient(90deg, #ffb56b, #feb562, #fdb559, #fab64f, #f8b744, #f4b839, #f1b92c, #ecba1c);    background-size: 200% 100%; /* Set background size */
+    transition: background-position 0.2s; /* Add transition for background position */
+}
+
+.chat-btn:hover {
+    background-position: -100% 0; /* Move background position on hover */
+    transform: translateY(-2px); /* Add slight upward lift on hover */
+}
+
+
+        
+       
+        .chat-input input,
+        .chat-submit {
+            display: none;
+        }
+
+        .user-icon {
+    display: inline-block; 
+    vertical-align: middle; 
+    margin-right: 5px; /* Changed margin-left to margin-right */
+    float: right; /* Added float to move it to the right */
+}
+.user-icon img {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+}
+
+
+        
+/* Responsive adjustments */
+@media (max-width: 576px) {
+            /* Adjust styles for smaller screens */
+            .chat-box-header {
+                font-size: 1.2em;
+            }
+
+            .msg-avatar img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .chat-btn {
+                padding: 8px 15px;
+            }
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="center-text">
+        <h2>Test for InteraktBot</h2>
+    </div>
+    <div id="body">
+        <div id="chat-circle" class="btn btn-raised">
+            <div id="chat-overlay"></div>
+            <img src="resources/bot-icon.png" alt="InteraktBot Icon" style="width: 50px; height: 50px; position: relative;">
+            <div class="online-indicator"></div>
+        </div>
+
+        <div class="chat-box collapsed">
+            <div class="chat-box-header">
+                <span class="chat-box-icon">
+                    <img src="resources/bot-icon.png" alt="InteraktBot Icon">
+                </span>
+                InteraktBot
+                <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+                <span class="online-indicator"></span>
+            </div>
+            <div class="chat-box-body">
+                <div class="chat-box-overlay"></div>
+                <div class="chat-logs">                    
+                    <div class="chat-msg user">
+                        <span class="msg-avatar">
+                            <img src="resources/bot-icon.png" alt="InteraktBot Icon">
+                        </span>
+                        <div class="cm-msg-text">
+                            Salut, bienvenue chez Interakt Agency. Ici, "Là où les idées prennent vie" est notre slogan.
+                        </div>
+                    </div>
+                    <div class="chat-msg user">
+                        <span class="msg-avatar">
+                            <img src="resources/bot-icon.png" alt="InteraktBot Icon">
+                        </span>
+                        <div class="cm-msg-text">
+                            <img src="resources/gif.gif" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Send a message..." />
+                <button type="button" class="chat-submit" id="chat-submit"><i class="material-icons">send</i></button>
+                
+                <button class="chat-btn" chat-value="Je suis intéressé">Je suis intéressé</button>
+
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-fc66b7d9-66f0-e826-8457-db0b63ab82ed" crossorigin></script>
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".chat-box-header").click(function () {
+                $(".chat-box").toggleClass("collapsed");
+                $(".chat-box-header").toggleClass("online"); 
+            });
+
+            $(".chat-btn").click(function() {
+                var value = $(this).attr("chat-value");
+                generate_message(value, 'self');
+                if (value === 'Je suis intéressé') {
+                    generate_message('Please give us your name.', 'user');
+                }
+                else if (value === 'Votre Nom') {
+                    generate_message('Sélectionnez l\'un des services suivants:', 'user');
+                    $(".chat-input input").hide(); 
+                    $(".chat-submit").hide(); 
+                    $(".chat-btn").hide(); 
+                    var services = ['Service 1', 'Service 2', 'Service 3', 'Service 4', 'Aucun des services ci-dessus'];
+                    services.forEach(function(service) {
+                        var button = $("<button/>", {
+                            text: service,
+                            class: "chat-btn",
+                            click: function() {
+                                generate_message(service, 'self');
+                            }
+                        });
+                        $(".chat-input").append(button);
+                    });
+                }
+                
+                $(".chat-box").addClass("collapsed");
+            });
+
+            $("#chat-submit").click(function(e) {
+                e.preventDefault();
+                var msg = $("#chat-input").val().trim();
+                if (msg === '') {
+                    return false;
+                }
+                generate_message(msg, 'self');
+                fetchChatbotResponse(msg);
+            });
+            toggleVibration();
+            function toggleVibration() {
+        $('#chat-circle').toggleClass('vibrating');
+    }
+
+    
+    setInterval(toggleVibration, 9000); 
+        });
+    </script>
+</body>
+</html>
